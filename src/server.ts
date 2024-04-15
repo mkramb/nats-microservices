@@ -8,19 +8,18 @@ import { JSONCodec, connect } from "nats";
   console.log(`connected to ${nc.getServer()}`);
 
   const service = await nc.services.add({
-    name: "max",
+    name: "math",
+    queue: "math",
     version: "0.0.1",
     description: "simple calculator service",
   });
-
-  service.addGroup("math");
 
   service.stopped.then((err) => {
     console.log(`service stopped ${err ? "because: " + err.message : ""}`);
   });
 
-  void service.addEndpoint("max", {
-    subject: "max.find_max",
+  void service.addEndpoint("find_max", {
+    subject: "math.find_max",
     handler: (err, msg) => {
       if (err) console.error(err);
 
@@ -31,6 +30,22 @@ import { JSONCodec, connect } from "nats";
     },
     metadata: {
       description: "returns max number of provided input",
+      format: "application/json",
+    },
+  });
+
+  void service.addEndpoint("sum", {
+    subject: "math.sum",
+    handler: (err, msg) => {
+      if (err) console.error(err);
+
+      const numbers = JSONCodec<number[]>().decode(msg.data);
+      const result = numbers.reduce((a, b) => a + b);
+
+      msg.respond(JSONCodec().encode(result));
+    },
+    metadata: {
+      description: "returns sum of provided input",
       format: "application/json",
     },
   });

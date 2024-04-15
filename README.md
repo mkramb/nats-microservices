@@ -2,6 +2,10 @@
 
 > A simple way to create microservices that leverage NATS for scalability, load management and observability.
 
+- API Gateway (micro)
+- Load Balancing (queue group)
+- Discovery (micro)
+
 ## Prerequisite
 
 ```
@@ -32,10 +36,24 @@ Setup:
 pnpm install
 ```
 
-Running services:
+Run services:
 
 ```
 tilt up
-# tilt up -- --only-infra
 ```
 
+Inspect registered service:
+
+```
+nats micro list
+nats micro info math
+nats micro stats math
+```
+
+Service discovery:
+
+```
+nats req '$SRV.INFO' "" --raw | jq
+nats req '$SRV.STATS' "" --raw | jq
+nats req '$SRV.STATS.math' "" --raw | jq
+```
