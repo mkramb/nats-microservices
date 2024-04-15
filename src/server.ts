@@ -10,8 +10,10 @@ import { JSONCodec, connect } from "nats";
   const service = await nc.services.add({
     name: "max",
     version: "0.0.1",
-    description: "returns max number",
+    description: "simple calculator service",
   });
+
+  service.addGroup("math");
 
   service.stopped.then((err) => {
     console.log(`service stopped ${err ? "because: " + err.message : ""}`);
@@ -26,6 +28,10 @@ import { JSONCodec, connect } from "nats";
       const result = Math.max(...numbers);
 
       msg.respond(JSONCodec().encode(result));
+    },
+    metadata: {
+      description: "returns max number of provided input",
+      format: "application/json",
     },
   });
 })();
