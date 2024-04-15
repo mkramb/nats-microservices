@@ -40,6 +40,10 @@ Run services:
 
 ```
 tilt up
+
+nats req math.sum ""
+nats req math.sum "[1,3]"
+nats req math.find_max "[1,3,2]"
 ```
 
 Inspect registered service:
@@ -57,3 +61,25 @@ nats req '$SRV.INFO' "" --raw | jq
 nats req '$SRV.STATS' "" --raw | jq
 nats req '$SRV.STATS.math' "" --raw | jq
 ```
+
+## Next Steps
+
+- Config Management (KV)
+- Canary Management (Subject Mapping)
+
+## Coming soon
+
+Tracing (Nats-Trace-Dest), available in nightly build:
+
+```
+./nightly/nats-server
+NATS_SERVER=localhost:4222 pnpm start
+
+nats sub trace
+nats req math.sum "[1,3]" -H "Nats-Trace-Dest:trace"
+```
+
+Deployment using NEX:
+
+- https://nats.io/blog/introducing_nex/
+- https://github.com/synadia-io/nex
