@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "remove-node-modules": "npx npkill",
-    "start": "ts-node ./src/index.ts"
+    "start": "ts-node ./src/server.ts"
   },
   "dependencies": {
     "express": "^4.19.2",

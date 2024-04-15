@@ -36,4 +36,6 @@ Running services:
 
 ```
 tilt up
+# tilt up -- --only-infra
 ```
+
