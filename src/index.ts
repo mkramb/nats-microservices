@@ -1,12 +1,21 @@
-import express from "express";
+import { connect } from "nats";
+import { waitForMs } from "./utils";
 
-const app = express();
-const port = process.env.PORT ?? 3000;
+async function start() {
+  const nc = await connect({ port: 4222 });
+  const done = nc.closed();
 
-app.get("/ping", (req, res) => {
-  res.send("Pong");
-});
+  console.log(`connected to ${nc.getServer()}`);
 
-app.listen(port, () => {
-  console.log(`Service listening on port ${port}`);
-});
+  // TODO: implement service
+  await waitForMs(10_000);
+
+  await nc.close();
+  const err = await done;
+
+  if (err) {
+    console.log(`error closing:`, err);
+  }
+}
+
+start();
