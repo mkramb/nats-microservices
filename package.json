@@ -1,0 +1,20 @@
+{
+  "name": "nats-microservices",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "remove-node-modules": "npx npkill",
+    "start": "ts-node ./src/index.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.6",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  }
+}
