@@ -4,7 +4,8 @@
 
 - API Gateway (micro)
 - Load Balancing (queue group)
-- Discovery (micro)
+- Service Discovery (micro)
+- Config Management (KV)
 
 ## Prerequisite
 
@@ -43,7 +44,7 @@ tilt up
 
 nats req math.sum ""
 nats req math.sum "[1,3]"
-nats req math.find_max "[1,3,2]"
+nats req math.max "[1,3,2]"
 ```
 
 Inspect registered service:
@@ -62,10 +63,14 @@ nats req '$SRV.STATS' "" --raw | jq
 nats req '$SRV.STATS.math' "" --raw | jq
 ```
 
-## Next Steps
+Update config:
 
-- Config Management (KV)
-- Canary Management (Subject Mapping)
+```
+nats sub "logs.>"
+
+nats kv put config logging true
+nats kv put config logging false
+```
 
 ## Coming soon
 
