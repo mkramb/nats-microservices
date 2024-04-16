@@ -55,7 +55,7 @@ async function setupConfig(js: JetStreamClient) {
 
       if (logging) {
         nc.publish(
-          `logs.match.max`,
+          `logs.math.max`,
           JSONCodec().encode({ msg: 'Executing max', params: { numbers } }),
         );
       }
@@ -78,7 +78,7 @@ async function setupConfig(js: JetStreamClient) {
 
       if (logging) {
         nc.publish(
-          `logs.match.find_max`,
+          `logs.math.find_max`,
           JSONCodec().encode({ msg: 'Executing sum', params: { numbers } }),
         );
       }

@@ -68,6 +68,7 @@ Update config:
 ```
 nats sub "logs.>"
 
+nats kv get config logging
 nats kv put config logging true
 nats kv put config logging false
 ```
